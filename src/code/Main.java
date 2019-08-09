@@ -26,6 +26,52 @@ import java.util.Scanner;
  * @create 08/08/2019
  */
 public class Main {
+
+  /**
+   * Método Main responsável por executar o programa no seu todo.
+   *
+   * O programa é dedicado para gerar gráficos extraídos do site
+   * https://developers.google.com/chart/interactive/docs/gallery.
+   * São três modelos:
+   *  - AreaChart: https://developers.google.com/chart/interactive/docs/gallery/areachart
+   *  - LineChart: https://developers.google.com/chart/interactive/docs/gallery/linechart
+   *  - PieChart: https://developers.google.com/chart/interactive/docs/gallery/piechart
+   * Esses são gerados após o usuário informa os dados para serem persistidos
+   * no gráfico, portanto, estes serão exibidos atráves de um browser qualquer.
+   *
+   * Os dados seguem a seguinte formatação:
+   *
+   * - Para AreaChart && LineChart:
+   *    ['Year', 'Sales', 'Expenses'],
+   *    ['2013',  1000,      400],
+   *    ['2014',  1170,      460],
+   *    ['2015',  660,       1120],
+   *    ['2016',  1030,      540]
+   *
+   * - Para PieChart:
+   *    ['Task', 'Hours per Day'],
+   *    ['Work',     11],
+   *    ['Eat',      2],
+   *    ['Commute',  2],
+   *    ['Watch TV', 2],
+   *    ['Sleep',    7]
+   *
+   *  Os dados são inseridos da seguinte forma no programa:
+   *    - Seleção do modelo de gráfico;
+   *    - Título do Gráfico:
+   *    - Infromações sobre eixo Y;
+   *      - Título;
+   *      - Dados.
+   *    - Infromações sobre eixo X;
+   *      - Título;
+   *      - Dados.
+   *
+   * -- IMPROTANTE --
+   * A quantidade de elementos no Eixo Y necessáriamente precisa ser igual no eixo X.
+   *
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
     ManipHtml html;
     EixoX eixoX;

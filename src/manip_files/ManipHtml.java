@@ -30,6 +30,16 @@ public class ManipHtml {
   private final String PATH = "charts/";
   private String style = "";
 
+  /**
+   * Reponsável por realizar a persistência do HTML em um arquivo .html.
+   *
+   * @param fileName: String => recebe o nome do gráfico;
+   * @param title: String    => recebe o título da página;
+   * @param listaEixoY: List => lista com os valores do eixo Y;
+   * @param listaEixoX: List => lista com os valores do eixo X.
+   *
+   * @throws IOException
+   */
   public void grava(String fileName, String title, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     FileWriter arquivo = new FileWriter(this.PATH.concat(fileName).concat(".html"));
     PrintWriter persistir = new PrintWriter(arquivo);
@@ -41,6 +51,17 @@ public class ManipHtml {
     arquivo.close();
   }
 
+  /**
+   * Método responsável por gerar o cabeçalho padrão do HTML.
+   *
+   * @param type: String => tipo do gráfico a ser gerado;
+   * @param title: String    => recebe o título da página;
+   * @param listaEixoY: List => lista com os valores do eixo Y;
+   * @param listaEixoX: List => lista com os valores do eixo X.
+   *
+   * @return String.
+   * @throws IOException
+   */
   private String cabecalho(String type, String title, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     StringBuilder html = new StringBuilder();
 
@@ -58,13 +79,25 @@ public class ManipHtml {
     return html.toString();
   }
 
+  /**
+   * Método responsável por gerar o rodapé padrão do HTML.
+   *
+   * @return StringBuilder.
+   */
   private String rodape() {
     StringBuilder html = new StringBuilder();
     html.append("</html>\n");
     return html.toString();
   }
 
-  private StringBuilder corpo(String style) {
+  /**
+   * Método responsável por gerar o corpo do HTML.
+   *
+   * @param style: String => Estilo CSS.
+   *
+   * @return String.
+   */
+  private String corpo(String style) {
     StringBuilder html = new StringBuilder();
 
     html.append("<body>\n");
@@ -75,9 +108,20 @@ public class ManipHtml {
       html.append("</div>\n");
     html.append("</body>\n");
 
-    return html;
+    return html.toString();
   }
 
+  /**
+   * Método responsável por gerar o <script> do HTML.
+   *
+   * @param type: String => tipo do gráfico a ser gerado;
+   * @param title: String    => recebe o título da página;
+   * @param listaEixoY: List => lista com os valores do eixo Y;
+   * @param listaEixoX: List => lista com os valores do eixo X.
+   *
+   * @return StringBuilder.
+   * @throws IOException
+   */
   private StringBuilder script(String type, String title, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     StringBuilder html = new StringBuilder();
 
@@ -93,6 +137,17 @@ public class ManipHtml {
     return html;
   }
 
+  /**
+   * Método responsável por gerar o JavaScript presente no <script> do HTML.
+   *
+   * @param type: String => tipo do gráfico a ser gerado;
+   * @param title: String    => recebe o título da página;
+   * @param listaEixoY: List => lista com os valores do eixo Y;
+   * @param listaEixoX: List => lista com os valores do eixo X.
+   *
+   * @return StringBuilder.
+   * @throws IOException
+   */
   private StringBuilder functionDrawJS(String type, String title, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     StringBuilder html = new StringBuilder();
     String titleArea = "";
@@ -113,7 +168,7 @@ public class ManipHtml {
           this.style = "width: 100%; height: 500px;";
 
           html.append("hAxis: {title: '");
-          html.append(titleArea);
+          html.append(listaEixoY.get(0));
           html.append("',  titleTextStyle: {color: '#333'}},\n");
           html.append("vAxis: {minValue: 0}\n");
           break;
@@ -139,6 +194,17 @@ public class ManipHtml {
     return html;
   }
 
+  /**
+   * Método responsável por organizar e gerar os dados que compõe o JavaScript
+   * para a modelagem do gráfico.
+   *
+   * @param type: String => tipo do gráfico a ser gerado;
+   * @param listaEixoY: List => lista com os valores do eixo Y;
+   * @param listaEixoX: List => lista com os valores do eixo X.
+   *
+   * @return StringBuilder.
+   * @throws IOException
+   */
   private StringBuilder dados(String type, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     StringBuilder html = new StringBuilder();
 
