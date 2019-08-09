@@ -27,18 +27,18 @@ import java.util.Scanner;
  */
 public class Main {
   public static void main(String[] args) throws IOException {
-    ManipHtml html = new ManipHtml();
-    EixoX eixoX = new EixoX();
+    ManipHtml html;
+    EixoX eixoX;
     Scanner imput = new Scanner(System.in);
 
-    final String[] nameFile = {"AreaChart", "LineChart", "PipeChart"};
+    final String[] nameFile = {"AreaChart", "LineChart", "PieChart"};
 
-    final List<EixoX> listaEixoX  = new ArrayList<EixoX>();
-    final List<String> listaEixoY = new ArrayList<String>();
-    String title = "";
-    String aux   = "a";
-    int op       = 0;
-    int cont     = 0;
+    List<EixoX> listaEixoX;
+    List<String> listaEixoY;
+    String title;
+    String aux;
+    int op;
+    int cont;
 
     System.out.println("\nGerador de gráfico HTML");
     System.out.println("\n-- IMPROTANTE -- ");
@@ -46,7 +46,7 @@ public class Main {
     while (true) {
       System.out.println("\n1- Area Chart");
       System.out.println("2- Line Chart");
-      System.out.println("3- Pipe Chart");
+      System.out.println("3- Pie Chart");
       System.out.println("0- Sair");
       System.out.print("Informe qual gráfico deseja gerar: ");
       op = imput.nextInt();
@@ -59,6 +59,8 @@ public class Main {
         return;
       }
 
+      listaEixoX = new ArrayList<>();
+      listaEixoY = new ArrayList<>();
       imput.nextLine();
       System.out.print("Título do Gráfico: ");
       title = imput.nextLine();
@@ -76,13 +78,15 @@ public class Main {
 
       System.out.println("\nInfromações sobre eixo X\n");
       while (true) {
+        eixoX = new EixoX();
+        cont = 0;
         System.out.print("Título: ");
         eixoX.setNome(imput.nextLine());
         while (true) {
           System.out.print("Dado: ");
           aux = imput.nextLine();
           if (!aux.isEmpty()) {
-            eixoX.setDado(Double.valueOf(aux));
+            eixoX.setDado(Double.parseDouble(aux));
             cont++;
           } else
             if (cont >= listaEixoY.size() - 1) {
@@ -96,11 +100,12 @@ public class Main {
           if (imput.nextLine().toLowerCase().charAt(0) == 'n')
             break;
           else
-            eixoX = new EixoX();
+            cont = 0;
         } else
           break;
       }
 
+      html = new ManipHtml();
       switch (op) {
         case 1:
           html.grava(nameFile[op - 1], title, listaEixoY, listaEixoX);

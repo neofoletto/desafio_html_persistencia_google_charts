@@ -142,14 +142,8 @@ public class ManipHtml {
   private StringBuilder dados(String type, List<String> listaEixoY, List<EixoX> listaEixoX) throws IOException {
     StringBuilder html = new StringBuilder();
 
-//    html.append("['Year', 'Sales', 'Expenses'],");
-//    html.append("['2013',  1000,      400],");
-//    html.append("['2014',  1170,      460],");
-//    html.append("['2015',  660,       1120],");
-//    html.append("['2016',  1030,      540]");
-
     switch (type) {
-      case "AreaChart":
+      case "AreaChart": case "LineChart":
         for (int i = 0; i < listaEixoY.size(); i++) {
           html.append("[");
           html.append("'");
@@ -158,7 +152,7 @@ public class ManipHtml {
           for (int j = 0; j < listaEixoX.size(); j++) {
             if (i == 0) {
               html.append("'");
-              html.append(listaEixoX.get(i).getNome());
+              html.append(listaEixoX.get(j).getNome());
               html.append("',");
             } else {
               html.append(listaEixoX.get(j).getDado().get(i - 1));
@@ -168,14 +162,25 @@ public class ManipHtml {
           html.append("],").deleteCharAt(html.length() - 3);
         }
         break;
-      case "LineChart":
 
-        break;
       case "PieChart":
-
+        for (int i = 0; i < listaEixoY.size(); i++) {
+          html.append("[");
+          html.append("'");
+          html.append(listaEixoY.get(i));
+          html.append("',");
+          if (i == 0) {
+            html.append("'");
+            html.append(listaEixoX.get(i).getNome());
+            html.append("',");
+          } else {
+            html.append(listaEixoX.get(0).getDado().get(i - 1));
+            html.append(",");
+          }
+          html.append("],").deleteCharAt(html.length() - 3);
+        }
         break;
     }
-    System.out.println(html);
     return html.deleteCharAt(html.length() - 1);
   }
 }
